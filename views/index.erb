@@ -1,0 +1,15 @@
+<link rel="stylesheet" type="text/css" href="toDoStyle.css">
+
+<h1>Take a number, get in line</h1>
+
+<form action='/' method='POST'>
+  <strong>Take a number:</strong>
+  <input type='text' name='name' placeholder='Name' />
+  <input type='submit' value='Save'>
+</form>
+
+<p>Now Serving:</p>
+
+<ul>
+<li> <%= @list %> </li>
+</ul>
