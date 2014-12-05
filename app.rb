@@ -4,7 +4,6 @@ require 'bundler/setup'
 # load all of the gems in the gemfile
 Bundler.require
 require './models/Ticker'
-require './models/User'
 
 set :session_secret, '85txrIIvTDe0AWPCvbeXuXXpULCWZgpoRo1LqY8YsR9GAbph0jfOHosvtY4QFxi6'
 
@@ -19,13 +18,13 @@ else
 end
 
 before do
-  @user = User.find_by(name: session[:name])
+  @student = Student.find_by(name: session[:name])
+  @teacher = Teacher.find_by(name: session[:name])
 end
 
 get '/' do
-  if @user
-    #Find the right way to check if user is a teacher
-    if @user.find_by(Teacher)
+  if @teacher or @student
+    if @teacher
       erb :teacherpage
     else
       erb :waitingroom
@@ -37,9 +36,9 @@ end
 
 # Out login callback will recieve the submissions from
 # the login form.
-# ///////////////////////////////////
-# TODO Make login page, register page
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# ///////////////////////////////
+# TODO Make login, register view
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 post '/login' do
   # Get a handle to a user with a name that matches the
   # submitted username. Returns nil if no such user
