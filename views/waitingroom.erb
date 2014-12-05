@@ -1,3 +1,9 @@
-<h1> Now Serving: </h1>
+<select name='Choose a class'>
+  <% Student.lists.each do |list| %>
+    <option value="<%= list %>"> </option>
+  <% end %>
+</select>
+<form action='/choose_list' method='POST'>
 
-<p> Your number is: 2 </p>
+</form>
+<a href='/logout'>Logout</a>

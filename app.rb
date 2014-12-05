@@ -18,24 +18,25 @@ else
 end
 
 before do
-  @student = Student.find_by(name: session[:name])
-  @teacher = Teacher.find_by(name: session[:name])
+  @registered_student = Student.find_by(name: session[:name])
+  @registered_teacher = Teacher.find_by(name: session[:name])
 end
 
 get '/' do
-  puts @teacher
-  puts @student
-  if @teacher or @student
-    if @teacher
-      puts 'Teacher now logged in'
+  if @registered_teacher or @registered_student
+    if @registered_teacher
       erb :teacherpage
     else
-      puts 'Student now logged in'
       erb :waitingroom
     end
   else
     erb :login
   end
+end
+
+post '/choose_list/:list_name' do
+  @list = params[:list_name]
+  erb :listpage
 end
 
 # This login callback will recieve the submissions from
@@ -93,10 +94,11 @@ post '/new_teacher' do
   end
 end
 
-
+get '/logout' do
+  session.clear
+  redirect '/'
+end
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# TODO Routes for:
-#      1. taking a number
-#      2. calling next number
+# TODO
 # Don't forget to push to HEROKU!!!
