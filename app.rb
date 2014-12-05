@@ -23,10 +23,14 @@ before do
 end
 
 get '/' do
+  puts @teacher
+  puts @student
   if @teacher or @student
     if @teacher
+      puts 'Teacher now logged in'
       erb :teacherpage
     else
+      puts 'Student now logged in'
       erb :waitingroom
     end
   else
@@ -34,16 +38,14 @@ get '/' do
   end
 end
 
-# Out login callback will recieve the submissions from
-# the login form.
-# ///////////////////////////////
-# TODO Make login, register view
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# This login callback will recieve the submissions from
+# the login form in 'login.erb'.
 post '/login' do
-  # Get a handle to a user with a name that matches the
-  # submitted username. Returns nil if no such user
-  # exists
-  user = User.find_by(name: params[:name])
+
+  user = Teacher.find_by(name: params[:name])
+  if user.nil?
+    user = Student.find_by(name: params[:name])
+  end
 
   if user.nil?
     # first, we check if the user is in our database
@@ -65,8 +67,36 @@ post '/login' do
   end
 end
 
+# TODO Extend V-this-V to Student/Teacher user format
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+post '/new_student' do
+  @student = Student.create(params)
+  if @student.valid?
+    session[:name] = @student.name
+    @message = 'Success! Student Account has been created.'
+    erb :message_page
+  else
+    @message = @student.errors.full_messages.join(', ')
+    erb :message_page
+  end
+end
+
+post '/new_teacher' do
+  @teacher = Teacher.create(params)
+  if @teacher.valid?
+    session[:name] = @teacher.name
+    @message = 'Success! Teacher Account has been created.'
+    erb :message_page
+  else
+    @message = @teacher.errors.full_messages.join(', ')
+    erb :message_page
+  end
+end
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # TODO Routes for:
 #      1. taking a number
 #      2. calling next number
-#      3. creating users
 # Don't forget to push to HEROKU!!!

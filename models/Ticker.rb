@@ -1,11 +1,21 @@
 class Student < ActiveRecord::Base
-  belongs_to :User
   has_and_belongs_to_many :lists
+
+  # Make sure we don't have any duplicate usernames
+  validates :name, presence: true, uniqueness: true
+
+  # add the methods for secure password authentication
+  has_secure_password
 end
 
 class Teacher < ActiveRecord::Base
-  belongs_to :User
   has_many :lists
+
+  # Make sure we don't have any duplicate usernames
+  validates :name, presence: true, uniqueness: true
+
+  # add the methods for secure password authentication
+  has_secure_password
 end
 
 class List < ActiveRecord::Base
