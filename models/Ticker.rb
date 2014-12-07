@@ -10,7 +10,7 @@ end
 
 class Teacher < ActiveRecord::Base
   has_many :lists
-
+  
   # Make sure we don't have any duplicate usernames
   validates :name, presence: true, uniqueness: true
 

@@ -15,13 +15,13 @@ ActiveRecord::Schema.define(version: 20141205103826) do
 
   create_table "lists", force: true do |t|
     t.string  "name"
-    t.integer "teacher_id"
+    t.integer "teachers_id"
     t.string  "student_name"
   end
 
   create_table "students", force: true do |t|
     t.string  "name"
-    t.integer "list_id"
+    t.integer "lists_id"
     t.string  "password_digest"
   end
 

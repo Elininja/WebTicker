@@ -5,6 +5,8 @@ require 'bundler/setup'
 Bundler.require
 require './models/Ticker'
 
+enable :sessions
+
 set :session_secret, '85txrIIvTDe0AWPCvbeXuXXpULCWZgpoRo1LqY8YsR9GAbph0jfOHosvtY4QFxi6'
 
 if ENV['DATABASE_URL']
@@ -23,13 +25,17 @@ before do
 end
 
 get '/' do
-  if @registered_teacher or @registered_student
-    if @registered_teacher
-      erb :teacherpage
-    else
-      erb :waitingroom
-    end
+  puts 'Checking user variable'
+  if @registered_teacher
+    puts 'teacher'
+    @lists = @registered_teacher.lists.all
+    erb :teacherpage
+  elsif @registered_student
+    puts 'student'
+    @lists = @registered_student.lists.all
+    erb :waitingroom
   else
+    puts 'neither'
     erb :login
   end
 end
@@ -57,7 +63,10 @@ post '/login' do
     # if they are, we check if their password is valid,
     # then actually log in the user by setting a session
     # cookie to their username
+    puts 'user.name = ...'
+    puts '...' + user.name
     session[:name] = user.name
+    puts 'foo'
     redirect '/'
 
   else
@@ -68,13 +77,11 @@ post '/login' do
   end
 end
 
-# TODO Extend V-this-V to Student/Teacher user format
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 post '/new_student' do
   @student = Student.create(params)
   if @student.valid?
     session[:name] = @student.name
-    @message = 'Success! Student Account has been created.'
+    @message = 'Success! Your new Student Account has been created.'
     erb :message_page
   else
     @message = @student.errors.full_messages.join(', ')
@@ -86,7 +93,7 @@ post '/new_teacher' do
   @teacher = Teacher.create(params)
   if @teacher.valid?
     session[:name] = @teacher.name
-    @message = 'Success! Teacher Account has been created.'
+    @message = 'Success! Your new Teacher Account has been created.'
     erb :message_page
   else
     @message = @teacher.errors.full_messages.join(', ')
@@ -96,9 +103,9 @@ end
 
 get '/logout' do
   session.clear
-  redirect '/'
+  @message = 'You have successfully logged out! See you next time.'
+  erb :message_page
 end
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # TODO
 # Don't forget to push to HEROKU!!!
