@@ -1,4 +1,19 @@
-<h1>hello</h1>
-<p>hi</p>
+<h1>Welcome <%= @registered_teacher.name %></h1>
+
+<h2>
+  Start a new class list:
+<form action='/new_list' method='POST'>
+  <input type='text' name='list_name' placeholder='name'/>
+  <button type='submit'>submit</button>
+</form>
+</h2>
+
+<h3>
+  Go to:
+<select name='Choose a class'>
+  <option value="<%= @lists %>"> </option>
+</select>
+<form action='/choose_list' method='POST'>
+</h3>
 
 <a href='/logout'>Logout</a>

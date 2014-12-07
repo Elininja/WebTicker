@@ -28,11 +28,11 @@ get '/' do
   puts 'Checking user variable'
   if @registered_teacher
     puts 'teacher'
-    @lists = @registered_teacher.lists.all
+    @lists = List.find_by(name: @registered_teacher.name)
     erb :teacherpage
   elsif @registered_student
     puts 'student'
-    @lists = @registered_student.lists.all
+    @lists = List.find_by(name: @registered_student.name)
     erb :waitingroom
   else
     puts 'neither'
@@ -99,6 +99,10 @@ post '/new_teacher' do
     @message = @teacher.errors.full_messages.join(', ')
     erb :message_page
   end
+end
+
+post '/new_list' do
+
 end
 
 get '/logout' do

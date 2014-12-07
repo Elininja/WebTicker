@@ -1,0 +1,11 @@
+<h1> Welcome <%= @registered_student.name %> </h1>
+
+<h2>
+  Go to:
+<select name='Choose a class'>
+  <option value="<%= @lists %>"> </option>
+</select>
+<form action='/choose_list' method='POST'>
+</h2>
+
+<a href='/logout'>Logout</a>
