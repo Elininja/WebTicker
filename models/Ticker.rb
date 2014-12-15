@@ -1,3 +1,6 @@
 class Ticker < ActiveRecord::Base
-  has_and_belongs_to_many :users
+  # Make sure we don't have any duplicate usernames
+  validates :name, presence: true, uniqueness: true
+
+  has_many :users
 end

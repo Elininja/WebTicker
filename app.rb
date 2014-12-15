@@ -42,16 +42,18 @@ before do
 end
 
 # We can now show a login page at / for logged-out
-# visitors, and show a list of todos at / for logged-in
-# visitors!
+# visitors, and show a teacher or student page at / for logged-in
+# users!
 get '/' do
   if @user
-    if @user.user_type = 'teacher'
+    if @user.user_type == 'teacher'
       @tickers = @user.tickers
       erb :teacherpage
-    else
-      @tickers = @user.tickers
+    elsif @user.user_type == 'student'
+      @tickers = Ticker.all
       erb :studentpage
+    else
+      erb :login
     end
   else
     erb :login
@@ -113,12 +115,20 @@ post '/new_ticker' do
   redirect "/"
 end
 
-# post '/choose_ticker' do
-#   if @user.user_type = 'teacher'
-#     erb :teacher_ticker_page
-#   else
-#     erb :student_ticker_page
-#   end
+get '/choose_ticker/:ticker_name' do
+  if @user.user_type == 'teacher'
+    @ticker = Ticker.find_by(name: params[:ticker_name])
+    @students = @ticker.users
+    erb :teacher_ticker_page
+  else
+    @ticker = Ticker.find_by(name: params[:ticker_name])
+    # puts '------@ticker.users------'
+    # puts @ticker.users
+    # puts '-------------------------'
+    @students = @ticker.users
+    erb :student_ticker_page
+  end
+end
 
 get '/delete_user' do
   @user.destroy

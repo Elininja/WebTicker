@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   # create the todo_items association, and
   # automatically delete all the user's todo items
   # if they delete their account
-  has_and_belongs_to_many :tickers
+  has_many :tickers
 
   # add the methods for secure password authentication
   has_secure_password

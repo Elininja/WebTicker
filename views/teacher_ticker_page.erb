@@ -1,13 +1,13 @@
 <h1> Now Serving: </h1>
 
 <p>
-<% @list.each do |student|%>
-<%= student %> <a href='/delete_list_item'>Clear</a>
+<% @ticker.user_id.each do |student|%>
+<a href='/delete_item/<%= student.name %>'>Clear</a>
 <% end %>
 </p>
 
 <h2>
-  <a href='/'>Back to main page</a>
+<a href='/'>Go Back</a>
 </h2>
 
 <h3>

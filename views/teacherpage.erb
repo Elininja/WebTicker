@@ -9,15 +9,12 @@
 </h2>
 
 <h3>
-  Go to:
-  <form action='/choose_ticker' method='POST'>
-    <select name='Choose a WebTicker'>
-      <% @user.tickers each do |list| %>
-      <option value="<%= list.name %>"> </option>
-      <% end %>
-    </select>
-    <button type='submit'>submit</button>
-  </form>
+  Current Classes:
+  <% @tickers.each do |ticker| %>
+    <p>
+      <a href='/choose_ticker/<%= ticker.name %>'><%= ticker.name %></a>
+    </p>
+  <% end %>
 </h3>
 
 <a href='/logout'>Logout</a>

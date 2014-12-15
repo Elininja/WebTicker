@@ -11,10 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141215000610) do
+ActiveRecord::Schema.define(version: 20141215220528) do
 
   create_table "tickers", force: true do |t|
-    t.string  "teacher"
     t.string  "name"
     t.integer "user_id"
   end
