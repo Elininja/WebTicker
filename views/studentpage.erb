@@ -1,11 +1,19 @@
 <h1> Welcome <%= @registered_student.name %> </h1>
 
 <h2>
+  Join a class list:
+  <form action='/choose_list/:list_name' method='POST'>
+    <input type='text' name='name' placeholder='name'/>
+    <button type='submit'>submit</button>
+  </form>
+</h2>
+
+<h3>
   Go to:
 <select name='Choose a class'>
   <option value="<%= @lists %>"> </option>
 </select>
 <form action='/choose_list' method='POST'>
-</h2>
+</h3>
 
 <a href='/logout'>Logout</a>

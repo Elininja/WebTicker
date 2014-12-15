@@ -11,21 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205103826) do
+ActiveRecord::Schema.define(version: 20141215000610) do
 
-  create_table "lists", force: true do |t|
-    t.string "name"
-    t.string "student_name"
+  create_table "tickers", force: true do |t|
+    t.string  "teacher"
+    t.string  "name"
+    t.integer "user_id"
   end
 
-  create_table "students", force: true do |t|
+  create_table "users", force: true do |t|
     t.string "name"
-    t.string "password_digest"
-  end
-
-  create_table "teachers", force: true do |t|
-    t.string "name"
-    t.string "list_name"
+    t.string "user_type"
     t.string "password_digest"
   end
 

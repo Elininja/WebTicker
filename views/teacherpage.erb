@@ -1,19 +1,23 @@
-<h1>Welcome <%= @registered_teacher.name %></h1>
+<h1>Welcome <%= @user.name %></h1>
 
 <h2>
-  Start a new class list:
-<form action='/new_list' method='POST'>
-  <input type='text' name='list_name' placeholder='name'/>
+  Start a new WebTicker:
+<form action='/new_ticker' method='POST'>
+  <input type='text' name='name' placeholder='name'/>
   <button type='submit'>submit</button>
 </form>
 </h2>
 
 <h3>
   Go to:
-<select name='Choose a class'>
-  <option value="<%= @lists %>"> </option>
-</select>
-<form action='/choose_list' method='POST'>
+  <form action='/choose_ticker' method='POST'>
+    <select name='Choose a WebTicker'>
+      <% @user.tickers each do |list| %>
+      <option value="<%= list.name %>"> </option>
+      <% end %>
+    </select>
+    <button type='submit'>submit</button>
+  </form>
 </h3>
 
 <a href='/logout'>Logout</a>
