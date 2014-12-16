@@ -1,7 +1,10 @@
 <h1> Now Serving: </h1>
 
 <p>
-  <%= @user.name %>
+<%  current = 1
+    @ticker.users.all.each do |user| %>
+<%=   current + @user.name %>
+<%  end %>
 </p>
 
 <h2>

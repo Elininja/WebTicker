@@ -8,8 +8,7 @@ require 'rubygems'
 require 'bundler/setup'
 # load all of the gems in the gemfile
 Bundler.require
-require './models/Ticker'
-require './models/User'
+require './models/WebTicker'
 
 # enable cookie-based sessions
 enable :sessions
@@ -47,7 +46,7 @@ end
 get '/' do
   if @user
     if @user.user_type == 'teacher'
-      @tickers = @user.tickers
+      @tickers = Ticker.all
       erb :teacherpage
     elsif @user.user_type == 'student'
       @tickers = Ticker.all
@@ -60,7 +59,7 @@ get '/' do
   end
 end
 
-# Out login callback will recieve the submissions from
+# The login callback will recieve the submissions from
 # the login form.
 post '/login' do
   # Get a handle to a user with a name that matches the
@@ -118,13 +117,10 @@ end
 get '/choose_ticker/:ticker_name' do
   if @user.user_type == 'teacher'
     @ticker = Ticker.find_by(name: params[:ticker_name])
-    @students = @ticker.users
+    @students = @ticker.user
     erb :teacher_ticker_page
   else
     @ticker = Ticker.find_by(name: params[:ticker_name])
-    # puts '------@ticker.users------'
-    # puts @ticker.users
-    # puts '-------------------------'
     @students = @ticker.users
     erb :student_ticker_page
   end

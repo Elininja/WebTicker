@@ -11,17 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141215220528) do
+ActiveRecord::Schema.define(version: 20141216000011) do
 
   create_table "tickers", force: true do |t|
-    t.string  "name"
-    t.integer "user_id"
+    t.string "user_name"
   end
 
   create_table "users", force: true do |t|
     t.string "name"
     t.string "user_type"
     t.string "password_digest"
+  end
+
+  create_table "users_tickers", id: false, force: true do |t|
+    t.integer "user_id"
+    t.integer "ticker_id"
   end
 
 end

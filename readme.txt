@@ -2,26 +2,10 @@ WebTicker
 
 Instructions for running:
 Clone repo (pull changes) and run shotgun.
-Currently, the database has in it one teacher account:
 
-  Username: Jens
-  Password: seriesoftubes
+While attempting to switch to a has_and_belongs_to_many association in my schema, I broke creating a new ticker.
 
-And one student account:
-
-  Username: Eli
-  Password: likeaboss
-
-Also, there are three tickers:
-
-  Computer Networks
-  Cyber Security
-  CS171
-
-A student can view the page for a ticker, but each ticker page only displays the name of the student currently viewing it.
-
-TODO:
- ~Fix teacher's and students' ticker view so that it reflects one list of all the students currently in the class.
+Still stuck at figuring out my schema.
 
 *HEROKU URL HERE (eventually)*
 

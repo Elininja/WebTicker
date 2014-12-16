@@ -1,9 +1,7 @@
 <h1> Now Serving: </h1>
 
 <p>
-<% @ticker.user_id.each do |student|%>
-<a href='/delete_item/<%= student.name %>'>Clear</a>
-<% end %>
+<%= @students.name %>
 </p>
 
 <h2>
